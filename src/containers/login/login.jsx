@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import './login.less'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 import qs from 'querystring'
 import { Form, Input, Button, Icon,message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {reqLogin} from '../../api'
-import {action1,action2} from '../../redux/action_creators/test_action'
+import {saveUserInfo} from '../../redux/action_creators/login_action'
 //登录路由组件
  class Login extends Component {
     
@@ -16,18 +17,35 @@ import {action1,action2} from '../../redux/action_creators/test_action'
     handleSubmit=(event)=>{
         event.preventDefault();
         this.props.form.validateFields(async(err,values)=>{
+           
             if(!err){
-                reqLogin(values)
+                let result =await reqLogin(values)
+                // console.log(result)
+                const {data,status,msg} = result.data
+                if (status === 0){
+                    this.props.saveUserInfo(data)
+                  this.props.history.replace('/admin')
+                  
+              }else{
+                   message.warning(msg,1)}
+                       }
+            
+       
+           
+               
+                // console.log(reqLogin(values))
+            //   let result= await reqLogin(values)
+            //    console.log(result)
             //    let result = await 
             //    console.log(result)
             //    const {status,msg,data} = result
             //    if (status === 0){
             //        console.log(data)
             //    }else{
-            //         message.warning(msg,1)
-            //    }
+            //         message.warning(msg,1)}
+            // //    }
                 
-            }else{
+            else{
                 message.error('from input wrong!')
             }
         })
@@ -44,6 +62,10 @@ import {action1,action2} from '../../redux/action_creators/test_action'
 
     render() {
         const { getFieldDecorator } = this.props.form;
+        const {isLogin} = this.props
+        if(isLogin)
+            return  <Redirect to='/admin/' />
+        else
         return (
             <div className='login'>
                 <header className='login-header'>
@@ -95,9 +117,8 @@ import {action1,action2} from '../../redux/action_creators/test_action'
 }
 export default 
 connect(
-    state=>({test:state.test}),
+    state=>({isLogin:state.userInfo.isLogin}),
     {
-        action1,
-        action2
+        saveUserInfo
     }
-)(Form.create()(Login))
+)(Form.create()(Login)) 
