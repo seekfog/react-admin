@@ -10,7 +10,6 @@ export default function login(preState=initState,action){
     let newState
     switch (type) {
         case SAVEUSER:
-            
             return {username:data.username,isLogin:true} ;
         case DELETEUSER:
             return {username:'',isLogin:false}

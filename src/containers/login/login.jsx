@@ -64,7 +64,7 @@ import {saveUserInfo} from '../../redux/action_creators/login_action'
         const { getFieldDecorator } = this.props.form;
         const {isLogin} = this.props
         if(isLogin)
-            return  <Redirect to='/admin/' />
+            return  <Redirect to='/admin/home' />
         else
         return (
             <div className='login'>
