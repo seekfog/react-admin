@@ -50,6 +50,7 @@ const { Item ,SubMenu} = Menu;
   )
   }
     render() {
+   
         return (
             <div>
                 <div style={{fontSize:'25px'}}>

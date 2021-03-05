@@ -8,14 +8,23 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {reqLogin} from '../../api'
 import {saveUserInfo} from '../../redux/action_creators/login_action'
 //登录路由组件
- class Login extends Component {
+@Form.create()
+@connect
+(
+    state=>({isLogin:state.userInfo.isLogin}),
+    {
+        saveUserInfo
+    }
+)
+class Login extends Component {
     
     //  componentDidMount(){
     //      console.log(this.props.test)
     //  }
-   
+    //提交登陆的回掉
     handleSubmit=(event)=>{
         event.preventDefault();
+        //表单的统一验证
         this.props.form.validateFields(async(err,values)=>{
            
             if(!err){
@@ -29,10 +38,6 @@ import {saveUserInfo} from '../../redux/action_creators/login_action'
               }else{
                    message.warning(msg,1)}
                        }
-            
-       
-           
-               
                 // console.log(reqLogin(values))
             //   let result= await reqLogin(values)
             //    console.log(result)
@@ -46,12 +51,12 @@ import {saveUserInfo} from '../../redux/action_creators/login_action'
             // //    }
                 
             else{
-                message.error('from input wrong!')
+                message.error('表单输入有误！')
             }
         })
     }
 
-   
+    //自定义密码要求
      demo=(rule,value,callback)=>{
         if(value.length<4 || value.length>12){
             callback('wrong length!')
@@ -79,8 +84,8 @@ import {saveUserInfo} from '../../redux/action_creators/login_action'
         <Form.Item>
         {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!' },
-            { max: 12, message: 'ban max' },
-            { min: 4, message: 'ban min' },
+            { max: 12, message: '你太长了' },
+            { min: 4, message: '你太短了' },
             { pattern: /^\w+$/, message: 'ban incorrect' }
         ],
                                      })
@@ -115,10 +120,11 @@ import {saveUserInfo} from '../../redux/action_creators/login_action'
         )
     }
 }
-export default 
-connect(
-    state=>({isLogin:state.userInfo.isLogin}),
-    {
-        saveUserInfo
-    }
-)(Form.create()(Login)) 
+export default Login
+// export default 
+// connect(
+//     state=>({isLogin:state.userInfo.isLogin}),
+//     {
+//         saveUserInfo
+//     }
+// )(Form.create()(Login)) 
