@@ -15,6 +15,8 @@ import Product from '../product/product'
 import Home from '../../components/Home'
 import { Layout } from 'antd';
 import Navleft from './nav-left/nav-left'
+import Detail from '../product/detail'
+import Add_Update from '../product/add_update'
 const { Footer, Sider, Content } = Layout;
     class Admin extends Component {
         componentDidMount(){
@@ -42,7 +44,10 @@ const { Footer, Sider, Content } = Layout;
                             <Route path='/admin/charts/line'  component={Line}  /> 
                             <Route path='/admin/pie'  component={Pie}  /> 
                             <Route path='/admin/prod_about/category'  component={Category}  />
-                            <Route path='/admin/prod_about/product'  component={Product}  />
+                            <Route path='/admin/prod_about/product'  component={Product} exact  />
+                            <Route path='/admin/prod_about/product/detail/:id'  component={Detail} />
+                            <Route path='/admin/prod_about/product/add_update' exact component={Add_Update}  />
+                            <Route path='/admin/prod_about/product/add_update/:id'  component={Add_Update}  />
                             <Route path='/admin/role'  component={Role}  />
                             <Route path='/admin/home'  component={Home}  />
                             <Route path='/admin/user'  component={User}  />

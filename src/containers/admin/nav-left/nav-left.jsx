@@ -50,7 +50,7 @@ const { Item ,SubMenu} = Menu;
   )
   }
     render() {
-   
+      // console.log(this.props.location.pathname);
         return (
             <div>
                 <div style={{fontSize:'25px'}}>
@@ -60,13 +60,14 @@ const { Item ,SubMenu} = Menu;
           <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
         </Button> */}
         <Menu
-          defaultSelectedKeys={this.props.location.pathname.split('/').reverse()[0]}
+          defaultSelectedKeys={this.props.location.pathname.indexOf('product') !== -1 ? 'product':this.props.location.pathname.split('/').reverse()[0]}
           defaultOpenKeys={this.props.location.pathname.split('/').splice(2)}
           mode="inline"
           theme="dark"
         //   inlineCollapsed={this.state.collapsed}
         >
             {
+              
               this.createMenu(menuList)
             }          
         </Menu>

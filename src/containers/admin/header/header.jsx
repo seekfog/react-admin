@@ -30,6 +30,7 @@ const { confirm } = Modal
     //根据路由属性中地址的信息匹配titile
     getTitle=()=>{
         let pathKey=this.props.location.pathname.split('/').reverse()[0]
+        if (this.props.location.pathname.indexOf('product') !== -1) pathKey = 'product'
         let title = ''
         menuList.forEach(
             (item)=>{

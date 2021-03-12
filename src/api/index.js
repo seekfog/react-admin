@@ -13,6 +13,18 @@ export const reqCategoryList=()=>
 //添加商品分类
 export const reqAddCategory=(categoryName)=>
     myAxios.post(`${BASE_URL}/manage/category/add`,{parentId:0,categoryName})
-//更新商品分类{
+//更新商品分类
 export const reqUpdateCategory=({categoryId,categoryName})=>
     myAxios.post(`${BASE_URL}/manage/category/update`,{categoryId,categoryName})
+//获取商品分页
+export const reqProductList=(pageNum,pageSize)=>
+    myAxios.get(`${BASE_URL}/manage/product/list`,{params:{pageNum,pageSize}})
+//更新上下架状态
+export const reqUpdateProductStatus=(productId,status)=>
+    myAxios.post(`${BASE_URL}/manage/product/updateStatus`,{productId,status})
+    // http://localhost:5000/manage/product/updateStatus
+//搜索商品
+export const reqSearchProduct=({pageNum,pageSize,searchType,keyWord})=>{
+    console.log(searchType,keyWord)
+    return myAxios.get(`${BASE_URL}/manage/product/search`,{params:{pageSize,pageNum,[searchType]:keyWord}})
+}
