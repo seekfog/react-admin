@@ -25,6 +25,12 @@ export const reqUpdateProductStatus=(productId,status)=>
     // http://localhost:5000/manage/product/updateStatus
 //搜索商品
 export const reqSearchProduct=({pageNum,pageSize,searchType,keyWord})=>{
-    console.log(searchType,keyWord)
+    // console.log(searchType,keyWord)
     return myAxios.get(`${BASE_URL}/manage/product/search`,{params:{pageSize,pageNum,[searchType]:keyWord}})
 }
+//删除图片
+export const reqDelPicture = (name)=>
+    myAxios.post(`${BASE_URL}/manage/img/delete`,{name})
+//新增商品
+export const reqAddProduct=(productobj)=>
+    myAxios.post(`${BASE_URL}manage/product/add`,{...productobj})

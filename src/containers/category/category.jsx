@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import {reqCategoryList,reqAddCategory,reqUpdateCategory} from '../../../src/api/index'
 import { Table,Card,Button, message,Modal,Form,Icon,Input} from 'antd';
+import  {saveCategory} from '../../redux/action_creators/category_action'
+import {connect} from 'react-redux'
 import {PAGESIZE} from '../../config/index'
+@connect(
+  state=>{},
+  {saveCategory}
+)
 @Form.create()
  class Category extends Component {
     state={
@@ -11,6 +17,7 @@ import {PAGESIZE} from '../../config/index'
         isLoading:true,
         modalCurrentValue:'',
         modalCurrentId:'',
+        
     }
       
       showAddModal = () => {
@@ -94,16 +101,16 @@ import {PAGESIZE} from '../../config/index'
     getCategoryList= async ()=>{
         let result = await reqCategoryList()
         this.setState({isLoading:false})
-        console.log(result)
+        // console.log(result)
         let {status,data,msg} = result.data
         // data = data.map(
         //     (item)=>{
         //         return item.key = item._id
         //     }
         // )
-        
         if(status === 0) this.setState({categoryList:data.reverse()})
         else message.error(msg,1)
+        this.props.saveCategory(data)
     }
     componentDidMount(){
         this.getCategoryList()

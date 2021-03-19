@@ -4,6 +4,8 @@ import { Card,Button,Select,Input,Icon,Table, message,Modal } from 'antd';
 import {reqProductList,reqUpdateProductStatus,reqSearchProduct} from '../../api'
 import {saveProdList} from '../../redux/action_creators/prod_action'
 import {PAGESIZE} from '../../config'
+
+
 const {Option} = Select
 const{confirm} = Modal
 @connect(
@@ -173,7 +175,7 @@ const{confirm} = Modal
                     return (
                         <div>
                             <Button type='link' onClick={()=>this.props.history.push(`/admin/prod_about/product/detail/${item._id}`)}>详情</Button><br/>
-                            <Button type='link' onClick={()=>this.props.history.push('/admin/prod_about/product/add_update/2222')}>修改</Button><br/>
+                            <Button type='link' onClick={()=>this.props.history.push(`/admin/prod_about/product/add_update/${item._id}`)}>修改</Button><br/>
                         </div>
                         
                     )
